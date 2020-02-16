@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:java="http://www.mulesoft.org/schema/mule/java" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="af200784-425c-4913-91a7-202a6af3ba42">
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="sample-projectFlow" doc:id="87802f23-ce9e-4213-b0e8-10c1718927ed" >
+		<http:listener doc:name="Listener" doc:id="de95e5ac-65cd-4fb6-b397-3834b2632204" config-ref="HTTP_Listener_config" path="/Welcome"/>
+		<set-payload doc:name="Set Payload" doc:id="db07a285-4be9-4d03-b1b6-100d59f164b3" value="#[output application/json
+---
+{
+	nameValue:attributes.queryParams.name}]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="60a42934-fdd0-4097-8bd1-4434b21ba288" message=" welcome to Mule again" />
+	</flow>
+</mule>
